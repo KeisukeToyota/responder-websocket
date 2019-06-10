@@ -9,7 +9,7 @@
     </ul>
   </body>
   <script>
-    var ws = new WebSocket('ws://localhost:5042/ws');
+    var ws = new WebSocket('ws://protected-mountain-43351.herokuapp.com/ws');
     ws.onmessage = function (e) {
       var chat = document.getElementById('chat');
       var li = document.createElement('li');
