@@ -32,30 +32,31 @@
     <input type="text" id="textbox" placeholder="ここにメッセージを入れてEnterキーを押してね">
     <ul id="chat">
     </ul>
-  </body>
-  <script>
-    var ws = new WebSocket('wss://' + location.hostname + '/ws');
-    var textbox = document.getElementById('textbox');
-    ws.onmessage = function (e) {
-      var chat = document.getElementById('chat');
-      var li = document.createElement('li');
-      li.textContent = e.data;
-      chat.appendChild(li);
-    };
 
-    function sendMessage() {
-      if (window.event.keyCode == 13) {
-        document.messageBox.submit();
-      }
-    }
-
-    window.onload = function () {
-      textbox.addEventListener('keypress', function (e) {
-        if (e.keyCode == 13) {
-          ws.send(textbox.value);
-	        textbox.value = "";
+    <script>
+        var ws = new WebSocket('wss://' + location.hostname + '/ws');
+        var textbox = document.getElementById('textbox');
+        ws.onmessage = function (e) {
+          var chat = document.getElementById('chat');
+          var li = document.createElement('li');
+          li.textContent = e.data;
+          chat.appendChild(li);
+        };
+    
+        function sendMessage() {
+          if (window.event.keyCode == 13) {
+            document.messageBox.submit();
+          }
         }
-      });
-    }
-  </script>
-</html>
+    
+        window.onload = function () {
+          textbox.addEventListener('keypress', function (e) {
+            if (e.keyCode == 13) {
+              ws.send(textbox.value);
+              textbox.value = "";
+            }
+          });
+        }
+      </script>
+    </body>
+  </html>
