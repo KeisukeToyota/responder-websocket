@@ -1,15 +1,40 @@
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Responder Websocket</title>
   </head>
+  <style>
+    input {
+      border: 1px solid #000;
+      border-radius: 5px;
+      height: 30px;
+      width: 500px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      font-size: 15px;
+      padding: 10px;
+      border: 1px solid #000;
+    }
+
+    li:nth-child(even) {
+      background: #ccc;
+    }
+  </style>
   <body>
     <h1>Responder WebSocket</h1>
-    <input type="text" id="textbox">
+    <input type="text" id="textbox" placeholder="ここにメッセージを入れてEnterキーを推してね">
     <ul id="chat">
     </ul>
   </body>
   <script>
-    var ws = new WebSocket('wss://protected-mountain-43351.herokuapp.com/ws');
+    var ws = new WebSocket('wss://' + location.hostname + '/ws');
+    var textbox = document.getElementById('textbox');
     ws.onmessage = function (e) {
       var chat = document.getElementById('chat');
       var li = document.createElement('li');
@@ -24,15 +49,12 @@
     }
 
     window.onload = function () {
-      document.getElementById('textbox').addEventListener('keypress', function (e) {
+      textbox.addEventListener('keypress', function (e) {
         if (e.keyCode == 13) {
-          ws.send(getMessage());
+          ws.send(textbox.value);
+	        textbox.value = "";
         }
       });
-    }
-
-    function getMessage() {
-      return document.getElementById('textbox').value;
     }
   </script>
 </html>
