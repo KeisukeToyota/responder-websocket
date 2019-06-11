@@ -3,8 +3,6 @@ import responder
 api = responder.API()
 sessions = {}
 
-api.add_route('/', static=True)
-
 @api.route('/ws', websocket=True)
 async def websocket(ws):
     await ws.accept()
@@ -19,4 +17,5 @@ async def websocket(ws):
         del sessions[key]
         await ws.close()
 
+api.add_route('/', static=True)
 api.run()
