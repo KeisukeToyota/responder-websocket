@@ -40,23 +40,18 @@
     </ul>
 
     <script>
-        var url = 'wss://' + location.hostname + '/ws'
-        //var url = 'ws://localhost:5042/ws'
-        var ws = new WebSocket(url);
-        var textbox = document.getElementById('textbox');
+        const url = 'wss://' + location.hostname + '/ws'
+        //const url = 'ws://localhost:5042/ws'
+        const ws = new WebSocket(url);
+        const textbox = document.getElementById('textbox');
+        const chat = document.getElementById('chat');
+
         ws.onmessage = function (e) {
-          var chat = document.getElementById('chat');
-          var li = document.createElement('li');
+          const li = document.createElement('li');
           li.textContent = e.data;
           chat.appendChild(li);
-        };
-    
-        function sendMessage() {
-          if (window.event.keyCode == 13) {
-            document.messageBox.submit();
-          }
         }
-    
+
         window.onload = function () {
           textbox.addEventListener('keypress', function (e) {
             if (e.keyCode == 13) {
